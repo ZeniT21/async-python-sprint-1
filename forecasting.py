@@ -1,28 +1,18 @@
-# import logging
-# import threading
-# import subprocess
-# import multiprocessing
+from datetime import datetime
 
-
-from external.client import YandexWeatherAPI
-from tasks import (
-    DataFetchingTask,
-    DataCalculationTask,
-    DataAggregationTask,
-    DataAnalyzingTask,
-)
-from utils import CITIES, get_url_by_city_name
+from tasks import DataAnalyzingTask
 
 
 def forecast_weather():
     """
     Анализ погодных условий по городам
     """
-    # city_name = "MOSCOW"
-    # url_with_data = get_url_by_city_name(city_name)
-    # resp = YandexWeatherAPI.get_forecasting(url_with_data)
-    # print(resp)
-    pass
+    start = datetime.now()
+    dant = DataAnalyzingTask()
+    dant.collect_data()
+    dant.save_to_csv()
+    print(dant.choose_best())
+    print(datetime.now() - start)
 
 
 if __name__ == "__main__":
